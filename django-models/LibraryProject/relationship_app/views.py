@@ -59,9 +59,6 @@ def member_view(request):
 
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
-    """
-    Only users with the 'can_add_book' permission can access this view.
-    """
     if request.method == 'POST':
         return redirect('book_list') 
 
