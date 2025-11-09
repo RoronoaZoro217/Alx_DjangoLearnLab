@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Member Dashboard</title></head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <h2> Member Home </h2>
+    <p>Your assigned role is: <strong>{{ role }}</strong></p>
+    <p>You can browse the catalog and view your current loans.</p>
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Librarian Dashboard</title></head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <h2> Librarian Management Portal </h2>
+    <p>Your assigned role is: <strong>{{ role }}</strong></p>
+    <p>You can manage books, loan records, and member status.</p>
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+</body>
+</html>
