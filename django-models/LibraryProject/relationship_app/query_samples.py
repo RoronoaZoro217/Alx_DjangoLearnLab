@@ -2,18 +2,9 @@
 author = Author.objects.get(name="Author Name")
 books = author.books.all()
 
-books = Book.objects.filter(author__name="Author Name")
-
-
-books = Book.objects.filter(author_id=1)
-
-
-library = Library.objects.get(name="Library Name")
+library_name = "Library Name" 
+library = Library.objects.get(name=library_name)
 books = library.books.all()
-
-books = Book.objects.filter(libraries__name="Library Name")
-
-books = Book.objects.filter(libraries__id=1)
 
 
 library = Library.objects.get(name="Library Name")
