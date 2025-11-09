@@ -1,6 +1,6 @@
-
-author = Author.objects.get(name="Author Name")
-books = author.books.all()
+author_name = "Ledger"
+author = Author.objects.get(name=author_name)
+books = Book.objects.filter(author=author)
 
 library_name = "Library Name" 
 library = Library.objects.get(name=library_name)
