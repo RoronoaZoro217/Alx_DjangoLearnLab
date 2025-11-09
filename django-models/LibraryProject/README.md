@@ -1,0 +1,2 @@
+Gain familiarity with Django by setting up a Django development environment and creating a basic Django project.  
+This task introduces the Django workflow, including project creation, running the development server, and exploring the default structure.
