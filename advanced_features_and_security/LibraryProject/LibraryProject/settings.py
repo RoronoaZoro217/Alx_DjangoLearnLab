@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'bookshelf.apps.BookshelfConfig',
     'relationship_app.apps.RelationshipAppConfig',
     'accounts.apps.AccountsConfig',
-    # Optional: CSP Middleware
+    # Optional CSP Middleware
     'csp',
 ]
 
@@ -118,12 +118,18 @@ X_FRAME_OPTIONS = 'DENY'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
 # HTTP Strict Transport Security (force HTTPS)
-SECURE_HSTS_SECONDS = 3600  # increase in production
+SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
+# Proxy SSL header (if behind reverse proxy)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Content Security Policy (CSP) - optional
 CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'")
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'")  # allow inline scripts if needed
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")   # allow inline styles if needed
