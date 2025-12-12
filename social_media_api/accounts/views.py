@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from django.shortcuts import render
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .serializers import UserRegistrationSerializer, UserLoginSerializer
-from django.contrib.auth import get_user_model
+from .models import CustomUser  # Import CustomUser directly
 
-User = get_user_model()
 
 # Existing views
 class UserRegistrationView(generics.CreateAPIView):
@@ -24,14 +22,14 @@ class UserLoginView(generics.GenericAPIView):
         return Response({'token': token.key}, status=status.HTTP_200_OK)
 
 
-# New follow/unfollow views
+# Follow/unfollow views
 class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, username, *args, **kwargs):
         try:
-            target_user = User.objects.get(username=username)
-        except User.DoesNotExist:
+            target_user = CustomUser.objects.all().get(username=username)  # Use CustomUser.objects.all()
+        except CustomUser.DoesNotExist:
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
         request.user.following.add(target_user)
@@ -43,8 +41,8 @@ class UnfollowUserView(generics.GenericAPIView):
 
     def post(self, request, username, *args, **kwargs):
         try:
-            target_user = User.objects.get(username=username)
-        except User.DoesNotExist:
+            target_user = CustomUser.objects.all().get(username=username)  # Use CustomUser.objects.all()
+        except CustomUser.DoesNotExist:
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
         request.user.following.remove(target_user)
