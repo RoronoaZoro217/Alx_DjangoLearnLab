@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets, permissions, filters, generics
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 
@@ -15,8 +14,6 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]
-
-    # 🔍 Enable filtering (search)
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'content']
 
@@ -31,3 +28,15 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+# 🔹 New Feed View
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Get all users that the current user is following
+        following_users = self.request.user.following.all()
+        # Filter posts authored by those users, order by creation date descending
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
