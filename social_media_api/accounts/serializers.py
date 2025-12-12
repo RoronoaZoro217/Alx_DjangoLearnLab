@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate, get_user_model
-from rest_framework.authtoken.models import Token
 
 User = get_user_model()
 
@@ -18,7 +17,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             email=validated_data.get('email'),
             password=validated_data['password']
         )
-        Token.objects.create(user=user)
         return user
 
 
@@ -33,6 +31,5 @@ class UserLoginSerializer(serializers.Serializer):
         )
         if not user:
             raise serializers.ValidationError("Invalid credentials")
-
         attrs['user'] = user
         return attrs
