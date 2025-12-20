@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'AccountsApp',
     'Document',
+    'Audio',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
