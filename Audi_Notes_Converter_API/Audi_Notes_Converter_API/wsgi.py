@@ -11,6 +11,13 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Audi_Notes_Converter_API.settings')
+# Default to production settings for WSGI
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    os.getenv(
+        "DJANGO_SETTINGS_MODULE",
+        "Audi_Notes_Converter_API.settings.production"
+    )
+)
 
 application = get_wsgi_application()
