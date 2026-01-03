@@ -56,3 +56,11 @@ REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
 # PASSWORDS & TOKENS
 # Shorter reset window in production
 PASSWORD_RESET_TIMEOUT = 60 * 15
+
+# Disable console logging in production (PythonAnywhere safe)
+LOGGING["handlers"].pop("console", None)
+
+# Remove console from errors logger if present
+if "console" in LOGGING["loggers"]["errors"]["handlers"]:
+    LOGGING["loggers"]["errors"]["handlers"].remove("console")
+
